@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday App 🥋</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #050505, #220000, #0d0d0d);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+      color: white;
+    }
+
+    .bg-blur1,
+    .bg-blur2 {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      z-index: 0;
+    }
+
+    .bg-blur1 {
+      width: 320px;
+      height: 320px;
+      background: rgba(255, 0, 0, 0.25);
+      top: -100px;
+      left: -80px;
+    }
+
+    .bg-blur2 {
+      width: 400px;
+      height: 400px;
+      background: rgba(255, 0, 120, 0.18);
+      bottom: -120px;
+      right: -100px;
+    }
+
+    .phone {
+      width: 100%;
+      max-width: 390px;
+      height: 780px;
+      border-radius: 45px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(25px);
+      border: 1px solid rgba(255,255,255,0.15);
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 0 70px rgba(255,0,0,0.25);
+    }
+
+    .screen {
+      padding: 28px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .top-bar {
+      width: 140px;
+      height: 6px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      margin: 0 auto 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #d4d4d4;
+      font-size: 14px;
+    }
+
+    .login-card {
+      margin-top: 30px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 35px;
+      padding: 30px 22px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 0 40px rgba(255,255,255,0.05);
+    }
+
+    .icon {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff7b7b, #ff0033, #7a0000);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+      font-size: 60px;
+      box-shadow: 0 0 45px rgba(255,0,0,0.5);
+      border: 4px solid rgba(255,255,255,0.15);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 38px;
+      margin-top: 25px;
+      line-height: 1.1;
+      font-weight: 900;
+      text-shadow: 0 0 20px rgba(255,255,255,0.15);
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #ffb3b3;
+      margin-top: 10px;
+      font-size: 15px;
+    }
+
+    .inputs {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .inputs input {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.08);
+      color: white;
+      outline: none;
+      font-size: 15px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .inputs input::placeholder {
+      color: #c5c5c5;
+    }
+
+    .login-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 16px;
+      border: none;
+      border-radius: 20px;
+      background: linear-gradient(90deg, #ff0033, #ff4d88);
+      color: white;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 35px rgba(255,0,80,0.4);
+    }
+
+    .login-btn:hover {
+      transform: scale(1.03);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.06);
+      border-radius: 22px;
+      padding: 15px 10px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: 0.3s;
+      font-size: 14px;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card span {
+      display: block;
+      font-size: 26px;
+      margin-bottom: 6px;
+    }
+
+    .message {
+      margin-top: 25px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      padding: 20px;
+      text-align: center;
+      line-height: 1.8;
+      color: #e5e5e5;
+      font-size: 14px;
+    }
+
+    .message h2 {
+      margin-bottom: 10px;
+      color: #ffc6c6;
+      font-size: 20px;
+    }
+
+    footer {
+      text-align: center;
+      color: #bdbdbd;
+      font-size: 13px;
+      margin-top: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-blur1"></div>
+  <div class="bg-blur2"></div>
+
+  <div class="phone">
+    <div class="screen">
+
+      <div>
+        <div class="top-bar"></div>
+
+        <div class="header">
+          <span>22 Maio</span>
+          <span>🥋 Birthday App</span>
+        </div>
+
+        <div class="login-card">
+          <div class="icon">🥋</div>
+
+          <h1>
+            Feliz <br>
+            Aniversário
+          </h1>
+
+          <p class="subtitle">
+            Para a garota mais forte e incrível 💖
+          </p>
+
+          <div class="inputs">
+            <input type="text" placeholder="Nome da campeã">
+            <input type="password" placeholder="Senha secreta">
+          </div>
+
+          <button type="button" class="login-btn" id="enterButton">
+            Entrar ✨
+          </button>
+
+          <div class="cards">
+            <div class="card">
+              <span>🔥</span>
+              Força
+            </div>
+
+            <div class="card">
+              <span>⭐</span>
+              Brilho
+            </div>
+
+            <div class="card">
+              <span>🥇</span>
+              Campeã
+            </div>
+          </div>
+
+          <div class="message">
+            <h2>Mensagem Especial 💌</h2>
+
+            <p>
+              Você é uma pessoa incrível,
+              forte e cheia de luz.
+              Nunca esqueça o quanto é especial.
+            </p>
+          </div>
+
+          <div id="gallery" style="display:none; margin-top:25px;">
+            <h2 style="text-align:center; color:#ffc6c6; margin-bottom:15px;">
+              Nosso Grupo 💖
+            </h2>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+              <img src="raquel.jpg" style="width:100%; height:140px; object-fit:cover; border-radius:20px;">
+
+              <img src="raquel2.jpg" style="width:100%; height:140px; object-fit:cover; border-radius:20px;">
+
+              <img src="raquel3.jpg" style="width:100%; height:140px; object-fit:cover; border-radius:20px;">
+
+              <img src="raquel4.jpg" style="width:100%; height:140px; object-fit:cover; border-radius:20px;">
+            </div>
+          </div>
+
+          <div class="message">
+            <h2>Mensagem Especial 💌</h2>
+
+            <p>
+              Você é uma pessoa incrível,
+              forte e cheia de luz.
+              Nunca esqueça o quanto é especial.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        Feito com carinho 💖
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    function openGallery() {
+      const gallery = document.getElementById('gallery');
+
+      if (gallery) {
+        gallery.style.display = 'block';
+
+        setTimeout(() => {
+          gallery.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }, 200);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const button = document.getElementById('enterButton');
+
+      if (button) {
+        button.addEventListener('click', openGallery);
+      }
+    });
+  </script>
+
+</body>
+</html>
